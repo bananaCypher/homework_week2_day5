@@ -7,6 +7,14 @@ class Hotel
         @occupied_rooms = []
     end
 
+    def free_rooms
+       @available_rooms.count 
+    end
+
+    def used_rooms
+        @occupied_rooms.count
+    end
+
     def max_capacity
         @all_rooms.inject(0) { |capacity, room| capacity + room.capacity } 
     end
@@ -36,17 +44,37 @@ class Hotel
 
     def occupancy_report
         puts "Occupancy report:-"
-        puts "free rooms: #{current_capacity}" 
-        puts "used rooms: #{max_capacity - current_capacity}"
+        puts "Free rooms: #{free_rooms}" 
+        puts "Used rooms: #{used_rooms}"
+        puts "Current capacity(actual beds) #{current_capacity}"
+        puts "Chart of current capacity compared to maximum capacity"
         puts make_bar_chart(current_capacity, max_capacity)
     end
 
     def revenue_report
         puts "Revenue report:-"
-        puts "revenue per night: £#{current_revenue}"
-        puts "unoccupied room loss: £#{lost_revenue}"
-        puts "maximum revenu: £#{max_revenue}"
+        puts "Revenue per night: £#{current_revenue}"
+        puts "Unoccupied room loss: £#{lost_revenue}"
+        puts "Maximum possible revenue: £#{max_revenue}"
+        puts "Chart of current revenue compared to maximum revenue"
         puts make_bar_chart(current_revenue, max_revenue)
+    end
+
+    def occupancy_hash
+        {
+            'free' => "#{free_rooms}", 
+            'occupied' => "#{used_rooms}", 
+            'chart' => "#{make_bar_chart(current_capacity, max_capacity)}"
+        }
+    end
+
+    def revenue_hash
+        {
+            'per night' => current_revenue,
+            'loss' => lost_revenue,
+            'max' => max_revenue,
+            'chart' => make_bar_chart(current_revenue, max_revenue)
+        }
     end
 
     private
