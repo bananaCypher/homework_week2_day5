@@ -33,6 +33,17 @@ guest_10 = Guest.new('Alex')
 guest_11 = Guest.new('Sarah')
 guest_12 = Guest.new('Georgia')
 
-guest_1.check_in(hotel, [guest_2, guest_3])
+puts "Check Bill into a room"
+guest_1.check_in(hotel)
+hotel.show_occupied_rooms
+puts "Check John into a room"
+guest_2.check_in(hotel)
+hotel.show_occupied_rooms
+puts "Check Sarah into a room"
+guest_11.check_in(hotel)
+hotel.show_occupied_rooms
+
+hotel.occupancy_report
+hotel.revenue_report
 
 binding.pry; ''
