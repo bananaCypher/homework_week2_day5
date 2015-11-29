@@ -2,15 +2,19 @@ class Room
     attr_reader :capacity, :cost
     def initialize(capacity)
         @capacity = capacity
-        @occupants = []
+        @occupant = nil
         @cost = capacity*90
     end
 
     def occupy(guest)
-        @occupants.push(guest) 
+        @occupant = guest
     end
 
     def show_occupants
-        "This #{capacity} bedroom room is occupied by " + @occupants.map {|guest| "#{guest.name}"}.join(', ')
+        "This #{capacity} bedroom room is occupied by #{@occupant.name}"
+    end
+
+    def unoccupy()
+        @occupant = nil
     end
 end

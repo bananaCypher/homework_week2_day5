@@ -12,6 +12,7 @@ class Guest
         end        
         room = hotel.book_room
         room.occupy(self)
+        @current_room = room
     end
 
     def checkout(hotel)
@@ -20,6 +21,7 @@ class Guest
             return  
         end
         hotel.checkout(@current_room)
+        @current_room.unoccupy
         @current_room = nil
     end
 end

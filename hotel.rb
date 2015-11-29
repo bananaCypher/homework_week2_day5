@@ -2,8 +2,8 @@ class Hotel
     attr_accessor :name, :all_rooms, :available_rooms
     def initialize(name, rooms)
         @name = name
-        @all_rooms = [].concat(rooms)
-        @available_rooms = [].concat(rooms)
+        @all_rooms = rooms
+        @available_rooms = @all_rooms
         @occupied_rooms = []
     end
 
@@ -24,18 +24,18 @@ class Hotel
     end
 
     def has_capacity?(guest_count)
-        return true if guest_count <= current_capacity
+        return true if free_rooms > 0
     end
 
     def book_room
-        room = biggest_room_to_fit_guests(1)
-        @available_rooms.delete(room)
+        room = @available_rooms.pop
         @occupied_rooms.push(room)
         room
     end
 
     def checkout(room)
         @available_rooms.push(room)
+        @occupied_rooms.delete(room)
     end
 
     def show_occupied_rooms
@@ -78,10 +78,6 @@ class Hotel
     end
 
     private
-    def biggest_room_to_fit_guests(guest_count)
-        @available_rooms.uniq.sort_by{|room| -room.capacity}.detect{|room|room.capacity <= guest_count}
-    end
-
     def max_revenue
         @all_rooms.inject(0){|sum, room|sum + room.cost}
     end

@@ -44,6 +44,9 @@ hotel.show_occupied_rooms
 puts "Check Sarah into a room"
 guest_11.check_in(hotel)
 hotel.show_occupied_rooms
+puts "Check Bill out of a room"
+guest_1.checkout(hotel)
+hotel.show_occupied_rooms
 puts "\n"
 
 hotel.occupancy_report
